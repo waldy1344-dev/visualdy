@@ -10,6 +10,7 @@ const getSupabaseConfigStatus = () => ({
   url: supabaseUrl ? supabaseUrl.replace(/https?:\/\/[^/]+/, 'https://***') : null,
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const normalizePayload = (body: any) => {
   if (!body || typeof body !== 'object') return body
 
@@ -84,7 +85,7 @@ export async function POST(request: NextRequest) {
     if (error) {
       return NextResponse.json({
         error: error.message,
-        details: { code: error.code, hint: error.hint, status: error.status, config: getSupabaseConfigStatus() },
+        details: { code: error.code, hint: error.hint, config: getSupabaseConfigStatus() },
       }, { status: 400 })
     }
 
@@ -115,7 +116,7 @@ export async function PUT(request: NextRequest) {
     if (error) {
       return NextResponse.json({
         error: error.message,
-        details: { code: error.code, hint: error.hint, status: error.status, config: getSupabaseConfigStatus() },
+        details: { code: error.code, hint: error.hint, config: getSupabaseConfigStatus() },
       }, { status: 400 })
     }
 
@@ -140,7 +141,7 @@ export async function DELETE(request: NextRequest) {
     if (error) {
       return NextResponse.json({
         error: error.message,
-        details: { code: error.code, hint: error.hint, status: error.status, config: getSupabaseConfigStatus() },
+        details: { code: error.code, hint: error.hint, config: getSupabaseConfigStatus() },
       }, { status: 400 })
     }
 

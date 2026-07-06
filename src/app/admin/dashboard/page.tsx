@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
-import { Image, MessageSquare, Plus, ArrowRight, TrendingUp, Zap } from 'lucide-react'
+import { Image as ImageIcon, MessageSquare, Plus, ArrowRight, TrendingUp, Zap } from 'lucide-react'
 import { getPortfolios } from '@/services/portfolioService'
 import { getTestimonials } from '@/services/testimonialService'
 import { useAuth } from '@/hooks/useAuth'
@@ -18,7 +18,7 @@ export default function AdminDashboardPage() {
     {
       label: 'Total Portfolio',
       value: portfolios.length,
-      icon: <Image size={22} />,
+      icon: <ImageIcon size={22} />,
       color: '#7C3AED',
       href: '/admin/portfolio',
     },

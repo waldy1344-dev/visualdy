@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Layers, Search, Image as ImageIcon, Film, LayoutGrid, X } from 'lucide-react'
+import { Layers, Search, Image as ImageIcon, LayoutGrid, X } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PortfolioCard from '@/components/PortfolioCard'

@@ -13,7 +13,7 @@ import Footer from '@/components/Footer'
 const schema = z.object({
   name: z.string().min(2, 'Nama minimal 2 karakter'),
   message: z.string().min(10, 'Pesan/ulasan minimal 10 karakter'),
-  rating: z.coerce.number().min(1).max(5),
+  rating: z.number().min(1).max(5),
   photo_url: z.string().optional(),
 })
 

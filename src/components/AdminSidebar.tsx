@@ -3,13 +3,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
-  LayoutDashboard, Image, MessageSquare, Link2, LogOut, Zap, X
+  LayoutDashboard, Image as ImageIcon, MessageSquare, Link2, LogOut, Zap, X
 } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 
 const menuItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-  { href: '/admin/portfolio', label: 'Portfolio', icon: <Image size={18} /> },
+  { href: '/admin/portfolio', label: 'Portfolio', icon: <ImageIcon size={18} /> },
   { href: '/admin/testimonial', label: 'Testimoni', icon: <MessageSquare size={18} /> },
   { href: '/admin/social', label: 'Sosial Media', icon: <Link2 size={18} /> },
 ]
@@ -19,7 +19,7 @@ interface Props {
   onClose?: () => void
 }
 
-export default function AdminSidebar({ isOpen, onClose }: Props) {
+export default function AdminSidebar({ onClose }: Props) {
   const pathname = usePathname()
   const { signOut, user } = useAuth()
 
@@ -127,7 +127,7 @@ export default function AdminSidebar({ isOpen, onClose }: Props) {
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
           }}>
-            {user.email.startsWith('vd.') && user.email.endsWith('@gmail.com') ? user.email.substring(3, user.email.indexOf('@')) : user.email}
+            {user.email?.startsWith('vd.') && user.email?.endsWith('@gmail.com') ? user.email.substring(3, user.email.indexOf('@')) : user.email ?? ''}
           </div>
         )}
         <button

@@ -16,7 +16,7 @@ import { Testimonial } from '@/types/testimonial'
 const schema = z.object({
   name: z.string().min(2, 'Nama minimal 2 karakter'),
   message: z.string().min(5, 'Pesan minimal 5 karakter'),
-  rating: z.coerce.number().min(1).max(5),
+  rating: z.number().min(1).max(5),
   photo_url: z.string().optional(),
   admin_reply: z.string().optional(),
 })

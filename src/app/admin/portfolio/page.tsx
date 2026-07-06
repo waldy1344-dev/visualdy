@@ -8,12 +8,11 @@ import { z } from 'zod'
 import Image from 'next/image'
 import {
   Plus, Pencil, Trash2, X, Upload, Loader2, Save,
-  Image as ImageIcon, Film, Video, LayoutGrid,
+  Image as ImageIcon, Film, Video,
 } from 'lucide-react'
 import {
   getPortfolios, addPortfolio, updatePortfolio,
   deletePortfolio, uploadPortfolioImage, uploadPortfolioVideo,
-  DUMMY_PORTFOLIOS,
 } from '@/services/portfolioService'
 import { Portfolio } from '@/types/portfolio'
 
@@ -97,7 +96,6 @@ export default function AdminPortfolioPage() {
   })
 
   const mediaType = watch('media_type')
-  const selectedCategory = watch('category')
 
   const openAdd = () => {
     reset({ title: '', description: '', category: '', media_type: 'image', image_url: '', video_url: '' })
@@ -241,11 +239,11 @@ export default function AdminPortfolioPage() {
 
       const payload = {
         title: data.title.trim(),
-        description: data.description?.trim() || null,
+        description: data.description?.trim() || undefined,
         category: data.category.trim() || 'Logo',
         media_type: data.media_type || 'image',
-        image_url: imageUrl || null,
-        video_url: data.media_type === 'video' ? (videoUrl || null) : null,
+        image_url: imageUrl || undefined,
+        video_url: data.media_type === 'video' ? (videoUrl || undefined) : undefined,
       }
 
       if (modal.item && !modal.item.id.startsWith('dummy-')) {
