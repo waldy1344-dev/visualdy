@@ -1,0 +1,31 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { User } from '@supabase/supabase-js'
+import supabase from '@/lib/supabaseClient'
+import { signOut } from '@/lib/auth'
+
+export const useAuth = () => {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      setLoading(false)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  const handleSignOut = async () => {
+    await signOut()
+    window.location.href = '/admin/login'
+  }
+
+  return { user, loading, signOut: handleSignOut }
+}

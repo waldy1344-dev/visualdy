@@ -1,0 +1,39 @@
+const { createClient } = require('@supabase/supabase-js');
+
+const supabaseUrl = 'https://yepxaexatxpucjxmptvb.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllcHhhZXhhdHhwdWNqeG1wdHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDc3NDEsImV4cCI6MjA5MTk4Mzc0MX0.fElqOnPQcXPoTHXUZHorPwakom5w__5Ydly68yJ9h5U';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+async function insertTiktok() {
+  // Login first to bypass RLS
+  console.log('Authenticating as admin...');
+  const { error: loginError } = await supabase.auth.signInWithPassword({
+    email: 'vd.admin@gmail.com',
+    password: 'password123'
+  });
+
+  if (loginError) {
+    console.error('Authentication failed:', loginError.message);
+    return;
+  }
+  console.log('Authentication successful!');
+
+  const payload = {
+    platform: 'TikTok',
+    url: 'https://www.tiktok.com/@loh.aldyy?_r=1&_t=ZS-977EaGdtbeM'
+  };
+
+  console.log('Inserting/Upserting TikTok link into database...');
+  const { data, error } = await supabase
+    .from('social_links')
+    .upsert(payload, { onConflict: 'platform' })
+    .select();
+
+  if (error) {
+    console.error('Error inserting TikTok:', error.message);
+  } else {
+    console.log('Success! Inserted data:', JSON.stringify(data));
+  }
+}
+
+insertTiktok();
